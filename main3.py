@@ -8,7 +8,9 @@ class VakioHetu:
         return 42
 
 
-def main():
+def main() -> None:
+    ht_x = hetu3.Henkilotunnus(200588-7778)
+
     ht = hetu3.Henkilotunnus('200588-777P')
     ht2 = VakioHetu()
     nayta_ika(ht)
@@ -16,7 +18,8 @@ def main():
 
 
 def nayta_ika(h):
-    print(f"Henkilötunnuksen {h} ikä on {h.ika()}")
+    i = h.ika()
+    print("Henkilötunnuksen", h, 'ikä on', i)
 
 
 if __name__ == '__main__':

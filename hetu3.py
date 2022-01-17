@@ -10,7 +10,7 @@ VUOSISADAT = {
 
 
 class Henkilotunnus:
-    def __init__(self, teksti):
+    def __init__(self, teksti: str):
         if not stdnum.fi.hetu.is_valid(teksti):
             raise Exception(f"Ei ole kelvollinen hetu: {teksti}")
         self.hetu = teksti  # aseta attribuuttiin "hetu" muuttujan teksti sisältö
@@ -26,12 +26,18 @@ class Henkilotunnus:
         else:
             return "Mies"  # pariton = 1, 3, 5, 7, 9
 
-    def syntymapaiva(self):
+    def onko_nainen(self) -> bool:
+        return self.sukupuoli() == "Nainen"
+
+    def onko_mies(self) -> bool:
+        return not self.onko_nainen()
+
+    def syntymapaiva(self) -> datetime.date:
         paivays = datetime.datetime.strptime(self.hetu[:6], "%d%m%y").date()
         vuosisata = VUOSISADAT[self.hetu[6]]  # välimerkki -> vuosisata
         return paivays.replace(year=(vuosisata + (paivays.year % 100)))
 
-    def ika(self):
+    def ika(self) -> int:
         syntynyt = self.syntymapaiva()
         tanaan = datetime.date.today()
         vuosiero = tanaan.year - syntynyt.year
